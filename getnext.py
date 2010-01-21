@@ -10,6 +10,7 @@ fmt_sSeEE = re.compile('[sS]([0-9]+)[eE]([0-9]+)')
 fmt_SxEE  = re.compile('([0-9]+)[xX]([0-9]+)')
 
 discard = re.compile('([sS]ample|\.nfo$)')
+media = re.compile('\.(mkv|avi|mpg|wmv|ogg)$')
 
 def h_copy(fn):
 	print 'Copying', fn
@@ -20,8 +21,8 @@ def h_unrar(fn):
 	subprocess.call(['unrar', 'x', fn])
 
 handlers = [
-	{'re': re.compile('(mkv|avi|mpg|wmv|ogg)$'), 'handler': h_copy},
-	{'re': re.compile('rar$'), 'handler': h_unrar}
+	{'re': media, 'handler': h_copy},
+	{'re': re.compile('\.rar$'), 'handler': h_unrar}
 ]
 
 def extract_file_info(fn):
@@ -86,7 +87,6 @@ def cp_episode(path):
 	else:
 		print 'WTF', fn
 
-media = re.compile('\.(mkv|avi|mpg|wmv|ogg)$')
 ls = os.listdir('.')
 fi = nfi = {'season': 0, 'episode': 0}
 for fn in ls:
