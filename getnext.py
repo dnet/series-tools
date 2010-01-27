@@ -93,7 +93,7 @@ for fn in ls:
 	if (media.search(fn) == None):
 		continue
 	cfi = extract_file_info(fn)
-	if (fi_gt(cfi, fi)):
+	if cfi != None and fi_gt(cfi, fi):
 		fi = cfi
 
 if (fi == nfi):
