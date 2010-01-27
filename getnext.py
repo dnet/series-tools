@@ -5,7 +5,7 @@ import os
 import shutil
 import subprocess
 
-fmt_SEE   = re.compile('([0-9]{3,})')
+fmt_SEE   = re.compile('[^x]([0-9]{3,})[^p]')
 fmt_sSeEE = re.compile('[sS]([0-9]+)[eE]([0-9]+)')
 fmt_SxEE  = re.compile('([0-9]+)[xX]([0-9]+)')
 
