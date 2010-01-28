@@ -5,10 +5,6 @@ import os
 import shutil
 import subprocess
 
-fmt_SEE   = re.compile('[^x]([0-9]{3,})[^p]')
-fmt_sSeEE = re.compile('[sS]([0-9]+)[eE]([0-9]+)')
-fmt_SxEE  = re.compile('([0-9]+)[xX]([0-9]+)')
-
 discard = re.compile('([sS]ample|\.nfo$)')
 media = re.compile('\.(mkv|avi|mpg|wmv|ogg)$')
 
@@ -25,21 +21,25 @@ handlers = [
 	{'re': re.compile('\.rar$'), 'handler': h_unrar}
 ]
 
+def x_SEE(match):
+	see = match.group(1)
+	return {'season': int(see[:-2]), 'episode': int(see[-2:])}
+
+def x_double_raw(match):
+	return {'season': int(match.group(1)), 'episode': int(match.group(2))}
+
+fi_formats = [
+	{'re': re.compile('[^x]([0-9]{3,})[^p]'), 'extract': x_SEE},
+	{'re': re.compile('[sS]([0-9]+)[eE]([0-9]+)'), 'extract': x_double_raw},
+	{'re': re.compile('([0-9]+)[xX]([0-9]+)'), 'extract': x_double_raw}
+]
+
 def extract_file_info(fn):
-	match = fmt_SEE.search(fn)
-	if (match == None):
-		match = fmt_sSeEE.search(fn)
-		if (match == None):
-			match = fmt_SxEE.search(fn)
-			if (match == None):
-				return None
-			else:
-				return {'season': int(match.group(1)), 'episode': int(match.group(2))}
-		else:
-			return {'season': int(match.group(1)), 'episode': int(match.group(2))}
-	else:
-		see = match.group(1)
-		return {'season': int(see[:-2]), 'episode': int(see[-2:])}
+	for fmt in fi_formats:
+		match = fmt['re'].search(fn)
+		if (match != None):
+			return fmt['extract'](match)
+	return None
 
 def fi_gt(fi1, fi2):
 	if fi1['season'] == fi2['season']:
