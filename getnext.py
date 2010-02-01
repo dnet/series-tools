@@ -4,6 +4,7 @@ import re
 import os
 import shutil
 import subprocess
+import sys
 
 discard = re.compile('([sS]ample|\.nfo$)')
 media = re.compile('\.(mkv|avi|mpg|wmv|ogg)$')
