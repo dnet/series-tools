@@ -1,4 +1,4 @@
-Series-tools will consist of several handy tools, which are designed to make it easier to manage local collections of television series. Currently, only one such tool is available called getnext.
+Series-tools consists of several handy tools, which are designed to make it easier to manage local collections of television series. Currently, two such tools are available called getnext and playlatest.
 
 getnext
 =======
@@ -25,3 +25,8 @@ Example of a valid directory structure
 		...
 
 In this example, getnext would recognize that the next episode to be downloaded is the 10th from season 2 and it needs to be extracted from RAR.
+
+playlatest
+==========
+
+Playlatest plays the latest episode in the current directory. It does so by launching the application associated with the file (currently Windows and KDE are supported).
