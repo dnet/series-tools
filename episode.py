@@ -29,7 +29,7 @@ def latest(dir):
 			os.listdir(dir)), None)
 
 fi_formats = [
-	{'re': re.compile('[^x]([0-9]{3,})[^p]'), 'extract': x_SEE},
+	{'re': re.compile('[^xX]([0-9]{3,})[^p]'), 'extract': x_SEE},
 	{'re': re.compile('[sS]([0-9]+)[eE]([0-9]+)'), 'extract': x_double_raw},
 	{'re': re.compile('([0-9]+)[xX]([0-9]+)'), 'extract': x_double_raw}
 ]
