@@ -14,4 +14,4 @@ if (fi == None):
 try:
 	os.startfile(fi.filename)
 except:
-	os.system('kfmclient exec %s' % fi.filename)
+	os.system('kfmclient exec %s || gnome-open %s' % (fi.filename, fi.filename))
