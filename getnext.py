@@ -31,11 +31,11 @@ def get_episode(fi):
 	for fn in ls:
 		cfi = Episode.from_file(fn)
 		if (cfi != None and cfi.equals(fi)):
-			break
+			if cp_episode(os.path.join(dn, fn)):
+				break
 	else:
 		print 'Episode not found'
 		return
-	cp_episode(os.path.join(dn, fn))
 
 def cp_episode(path):
 	if (discard.search(path) != None):
@@ -47,13 +47,17 @@ def cp_episode(path):
 				continue
 			print 'Found file:', path
 			handler['handler'](path)
+			return True
 	elif os.path.isdir(path):
 		print 'Found directory:', path
 		ls = os.listdir(path)
+		retval = False
 		for fn in ls:
-			cp_episode(os.path.join(path, fn))
+			retval |= cp_episode(os.path.join(path, fn))
+		return retval
 	else:
 		print 'WTF', fn
+		return False
 
 e = latest('.')
 
