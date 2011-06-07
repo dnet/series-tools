@@ -61,7 +61,7 @@ def cp_episode(path):
 
 e = latest('.')
 
-if (e == None):
+if e is None:
 	print "Couldn't find any video files related to a series"
 	sys.exit(1)
 
