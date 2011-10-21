@@ -7,7 +7,7 @@ import episode
 
 fi = episode.latest('.')
 
-if (fi == None):
+if fi is None:
 	print "Couldn't find any video files related to a series"
 	sys.exit(1)
 
